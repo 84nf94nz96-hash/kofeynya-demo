@@ -1,0 +1,278 @@
+<!doctype html><html lang="ru"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#3b2416">
+<title>Тренажёр продавца — демо</title><style>
+:root{--esp:#2b1810;--roast:#4a2c1a;--car:#c8834a;--cream:#fff6ea;--foam:#f7e9d7;--latte:#e8cfb0;--ink:#2b1e16;--muted:#8a7462;--ok:#3fa45b;--bad:#e0524d;--gold:#f0b43c;--r:22px;--sh:0 10px 30px rgba(59,36,22,.15)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;color:var(--ink);font:16px/1.45 -apple-system,"SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:radial-gradient(1200px 600px at 100% -10%,#f5d7b4 0,transparent 60%),radial-gradient(900px 500px at -20% 110%,#ecc79f 0,transparent 55%),linear-gradient(180deg,#fbf2e6,#f3e2cc);background-attachment:fixed}
+#wrap{max-width:520px;margin:0 auto;padding:max(12px,env(safe-area-inset-top)) 16px 40px}
+.top{display:flex;align-items:center;gap:10px;margin:4px 0 12px}.logo{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--car),var(--roast));display:grid;place-items:center;font-size:22px;box-shadow:var(--sh)}
+.brand{font-weight:800;color:var(--roast);letter-spacing:.3px}.brand small{display:block;font-weight:600;color:var(--muted);font-size:12px}
+.demo{background:linear-gradient(90deg,#ffe8a6,#ffd98a);border-radius:14px;padding:8px 12px;font-size:12.5px;margin-bottom:12px;color:#5b4210}
+nav{display:flex;gap:6px;background:rgba(255,255,255,.55);backdrop-filter:blur(10px);padding:5px;border-radius:16px;margin-bottom:16px;box-shadow:0 2px 10px rgba(59,36,22,.06)}
+nav a{flex:1;text-align:center;padding:7px 2px;border-radius:12px;color:var(--roast);font-weight:700;font-size:11.5px;line-height:1.25;text-decoration:none;transition:.3s}nav a.on{background:linear-gradient(135deg,var(--car),#a35e2d);color:#fff;box-shadow:0 4px 12px rgba(163,94,45,.35)}
+.card{background:rgba(255,250,243,.92);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
+.btn{display:block;width:100%;border:0;border-radius:18px;padding:15px 16px;margin:10px 0;background:#fff;color:var(--ink);font:inherit;font-weight:600;text-align:left;cursor:pointer;box-shadow:0 3px 10px rgba(59,36,22,.08);transition:transform .15s,box-shadow .3s,background .3s,color .3s;text-decoration:none}
+.btn:active{transform:scale(.97)}.btn.main{background:linear-gradient(135deg,#d48d4f,#8f4f22);color:#fff;text-align:center;font-weight:800;box-shadow:0 8px 22px rgba(143,79,34,.4)}
+.btn.ghost{background:transparent;box-shadow:inset 0 0 0 2px var(--latte);text-align:center;color:var(--roast)}
+.ans{display:flex;gap:12px;align-items:center}.ans .k{flex:0 0 30px;height:30px;border-radius:10px;background:var(--foam);display:grid;place-items:center;font-weight:800;color:var(--roast);transition:.3s}
+.ans.ok{background:linear-gradient(135deg,#4cb86a,#2f8a48);color:#fff;box-shadow:0 0 0 4px rgba(63,164,91,.25),0 0 28px rgba(63,164,91,.55);animation:pop .45s}
+.ans.ok .k,.ans.bad .k{background:rgba(255,255,255,.25);color:#fff}.ans.bad{background:linear-gradient(135deg,#ef6a64,#c63d38);color:#fff;animation:shake .45s}.ans.dim{opacity:.45}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.screen{animation:inR .5s cubic-bezier(.2,.8,.2,1) both}@keyframes inR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+.stag>*{animation:up .5s cubic-bezier(.2,.8,.2,1) both}.stag>*:nth-child(2){animation-delay:.06s}.stag>*:nth-child(3){animation-delay:.12s}.stag>*:nth-child(4){animation-delay:.18s}.stag>*:nth-child(5){animation-delay:.24s}.stag>*:nth-child(6){animation-delay:.3s}.stag>*:nth-child(7){animation-delay:.36s}.stag>*:nth-child(8){animation-delay:.42s}.stag>*:nth-child(9){animation-delay:.48s}.stag>*:nth-child(10){animation-delay:.54s}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.qhead{display:flex;align-items:center;gap:12px;margin-bottom:12px}.ring{position:relative;width:62px;height:62px;flex:0 0 62px}.ring svg{transform:rotate(-90deg)}.ring circle{fill:none;stroke-width:6}.ring .bg{stroke:rgba(74,44,26,.12)}.ring .fg{stroke:url(#gr);stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .3s}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:18px;color:var(--roast)}.ring.low .fg{stroke:var(--bad)}.ring.low b{color:var(--bad);animation:beat 1s infinite}@keyframes beat{50%{transform:scale(1.15)}}
+.meta{flex:1}.meta .t{font-weight:800;color:var(--roast)}.meta .s{font-size:13px;color:var(--muted)}
+.prog{height:8px;background:rgba(74,44,26,.1);border-radius:8px;overflow:hidden;margin-top:6px}.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--car));border-radius:8px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.qcard{background:linear-gradient(160deg,#fff,#fff5e8);border-radius:var(--r);padding:20px 18px;font-size:18px;font-weight:700;box-shadow:var(--sh);margin-bottom:6px;position:relative;animation:cardin .55s cubic-bezier(.2,.8,.2,1) both}
+.qcard:before{content:"☕";position:absolute;right:14px;top:-14px;font-size:26px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.15))}
+@keyframes cardin{from{opacity:0;transform:translateY(24px) scale(.96) rotate(-1deg)}to{opacity:1;transform:none}}
+.fb{border-radius:18px;padding:14px;margin:10px 0;animation:up .4s both;font-weight:600}.fb.ok{background:#e2f5e6;color:#1f6b35}.fb.bad{background:#fde4e2;color:#94302c}.fb .why{font-weight:500;color:var(--ink);opacity:.85;margin-top:4px;font-size:14.5px}
+.chk{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ok);color:#fff;margin-right:6px;animation:pop .5s}
+.hero{border-radius:28px;padding:26px 22px;color:#fff;background:linear-gradient(150deg,#6b3d1f 0%,#3b2416 60%,#2b1810 100%);box-shadow:var(--sh);position:relative;overflow:hidden}
+.hero h1{font-size:30px;line-height:1.1;margin:10px 0}.hero p{opacity:.85;margin:0 0 16px}.hero .cup{font-size:64px;animation:float 3s ease-in-out infinite;display:inline-block}
+.steam{position:absolute;left:44px;top:6px}.steam i{position:absolute;width:6px;height:22px;border-radius:6px;background:rgba(255,255,255,.4);filter:blur(2px);animation:steam 2.4s infinite}.steam i:nth-child(2){left:12px;animation-delay:.6s}.steam i:nth-child(3){left:24px;animation-delay:1.2s}
+@keyframes steam{0%{opacity:0;transform:translateY(16px) scaleY(.6)}40%{opacity:1}100%{opacity:0;transform:translateY(-24px) scaleY(1.3)}}
+@keyframes float{50%{transform:translateY(-6px) rotate(-3deg)}}
+.glow{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(240,180,60,.35),transparent 70%);right:-80px;top:-80px;animation:float 6s ease-in-out infinite}
+.feat{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--latte)}.feat:last-child{border:0}.feat .i{flex:0 0 42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--foam),var(--latte));display:grid;place-items:center;font-size:21px}
+.feat b{display:block}.feat span{font-size:14px;color:var(--muted)}
+.map{position:relative;padding-left:8px}.map:before{content:"";position:absolute;left:33px;top:30px;bottom:30px;width:4px;border-radius:4px;background:repeating-linear-gradient(var(--latte) 0 10px,transparent 10px 18px)}
+.lv{display:flex;gap:14px;align-items:center;position:relative}.lv .n{flex:0 0 52px;height:52px;border-radius:50%;background:#fff;display:grid;place-items:center;font-weight:900;font-size:19px;color:var(--roast);box-shadow:0 0 0 4px var(--foam);z-index:1;transition:.4s}
+.lv.done .n{background:linear-gradient(135deg,#4cb86a,#2f8a48);color:#fff;box-shadow:0 0 0 4px #cdebd4}.lv.cur .n{background:linear-gradient(135deg,#d48d4f,#8f4f22);color:#fff;box-shadow:0 0 0 4px #f4d6b6,0 0 0 4px #f4d6b6;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 4px #f4d6b6,0 0 0 4px rgba(212,141,79,.5)}70%{box-shadow:0 0 0 4px #f4d6b6,0 0 0 18px rgba(212,141,79,0)}100%{box-shadow:0 0 0 4px #f4d6b6,0 0 0 4px rgba(212,141,79,0)}}
+.lv.locked{opacity:.55}.lv.locked .n{background:#efe4d6;color:#a8927e}.lv.unlock .n{animation:unl .9s cubic-bezier(.2,1.6,.4,1)}@keyframes unl{0%{transform:scale(.4) rotate(-30deg);filter:brightness(2)}100%{transform:none}}
+.lv .t{flex:1;min-width:0}.lv .t b{display:block;font-size:15.5px}.lv .t span{font-size:13px;color:var(--muted)}.stars{letter-spacing:1px;font-size:14px}.stars .on{color:var(--gold);text-shadow:0 0 6px rgba(240,180,60,.6)}.stars .off{color:#dccbb8}
+.result{text-align:center;padding:26px 18px}.badge{width:130px;height:130px;margin:6px auto 14px;border-radius:50%;display:grid;place-items:center;font-size:62px;background:conic-gradient(from 0deg,#f7d27a,#c8834a,#f7d27a,#e9a75b,#f7d27a);box-shadow:0 0 0 8px rgba(255,255,255,.7),0 12px 40px rgba(200,131,74,.55);animation:badge 1.1s cubic-bezier(.2,1.5,.4,1) both}
+.badge.fail{background:conic-gradient(#e8d6c3,#cbb39a,#e8d6c3);box-shadow:0 0 0 8px rgba(255,255,255,.7)}
+@keyframes badge{0%{transform:scale(0) rotate(-200deg);opacity:0}100%{transform:none;opacity:1}}
+.big{font-size:44px;font-weight:900;color:var(--roast)}.rank{display:inline-block;margin-top:8px;padding:8px 14px;border-radius:999px;background:var(--foam);font-weight:800;animation:up .5s .6s both}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.kpi{background:linear-gradient(150deg,#fff,#fff3e3);border-radius:18px;padding:12px;text-align:center;box-shadow:var(--sh)}.kpi b{display:block;font-size:26px;font-weight:900;color:var(--roast)}.kpi span{font-size:11.5px;color:var(--muted)}
+.emp{display:flex;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #f0e2d0}.emp:last-child{border:0}.av{flex:0 0 38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--car),var(--roast))}
+.emp .x{flex:1;min-width:0}.emp .x b{font-size:14.5px}.emp .x span{font-size:12px;color:var(--muted);display:block}.emp .sc{text-align:right;font-size:13px;font-weight:800;min-width:66px}.emp.me{background:linear-gradient(90deg,#fff1c4,transparent);border-radius:14px;padding-left:6px}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:800}.pill.ok{background:#e2f5e6;color:#1f6b35}.pill.bad{background:#fde4e2;color:#94302c}.pill.n{background:#efe4d6;color:#8a7462}
+.hb{margin:10px 0}.hb div{display:flex;justify-content:space-between;font-size:14px}.hb .prog{height:10px}.hb .prog i{background:linear-gradient(90deg,#f0b43c,#e0524d)}
+
+.drop{border:3px dashed var(--car);border-radius:22px;padding:22px 14px;text-align:center;color:#8a5a33;font-weight:700;transition:.35s;background:rgba(255,255,255,.5);cursor:pointer}.drop.over{background:#fff0dc;transform:scale(1.02);border-style:solid;box-shadow:0 0 0 6px rgba(200,131,74,.15)}
+.drop .ic{font-size:40px;display:block;animation:float 3s ease-in-out infinite}
+.fly{display:inline-flex;gap:8px;align-items:center;background:#fff;border-radius:12px;padding:8px 12px;box-shadow:0 6px 16px rgba(0,0,0,.12);margin-top:10px;animation:fly .8s cubic-bezier(.2,1.4,.4,1) both}@keyframes fly{from{transform:translateY(-120px) rotate(-12deg);opacity:0}}
+textarea{width:100%;min-height:110px;border:0;border-radius:16px;padding:12px;font:14px/1.4 inherit;background:#fff;box-shadow:inset 0 0 0 2px var(--foam);resize:vertical;color:var(--ink)}
+.scan{height:5px;border-radius:5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:scan 1s linear infinite;margin:10px 0}@keyframes scan{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.pcs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pc{background:#fff;border-radius:14px;padding:9px 10px;font-size:13px;box-shadow:0 4px 12px rgba(59,36,22,.1);animation:pin .5s cubic-bezier(.2,1.5,.4,1) both}.pc b{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px}
+@keyframes pin{from{opacity:0;transform:scale(.5) translateY(20px)}}
+.t-product b{color:#a35e2d}.t-benefit b{color:#3fa45b}.t-question b{color:#3a74c4}.t-answer b{color:#7b4bb5}.t-objection b{color:#d07a33}.t-prohibition b{color:#e0524d}
+.rt{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:13px}.rt tr{animation:up .45s both}.rt td{background:#fff;padding:7px 6px;vertical-align:top}.rt td:first-child{border-radius:12px 0 0 12px}.rt td:last-child{border-radius:0 12px 12px 0}
+.rt select,.rt input{width:100%;border:0;background:var(--foam);border-radius:8px;padding:6px;font:13px inherit;color:var(--ink)}.rt .del{background:none;border:0;font-size:16px;cursor:pointer}
+.row2{display:flex;justify-content:space-between;align-items:center;padding:13px 2px;border-bottom:1px dashed var(--latte);font-weight:700}.row2:last-child{border:0}
+.tg{width:54px;height:30px;border-radius:30px;background:#d9cbbb;position:relative;transition:.35s;cursor:pointer;flex:0 0 54px}.tg:after{content:"";position:absolute;width:24px;height:24px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.4s cubic-bezier(.2,1.5,.4,1);box-shadow:0 2px 5px rgba(0,0,0,.2)}.tg.on{background:var(--ok)}.tg.on:after{left:27px}
+.seg{display:flex;background:var(--foam);border-radius:12px;padding:3px;gap:2px}.seg button{border:0;background:none;padding:6px 9px;border-radius:9px;font:700 13px inherit;color:var(--roast);cursor:pointer;transition:.3s}.seg button.on{background:linear-gradient(135deg,#d48d4f,#8f4f22);color:#fff;transform:scale(1.05)}
+.chat{display:flex;flex-direction:column;gap:8px;min-height:300px;padding:6px 0}
+.msg{max-width:84%;padding:10px 13px;border-radius:18px;font-size:15px;animation:bub .4s cubic-bezier(.2,1.4,.4,1) both;transform-origin:bottom left}.msg.ai{background:#fff;box-shadow:0 3px 10px rgba(59,36,22,.1);border-bottom-left-radius:6px}.msg.me{background:linear-gradient(135deg,#d48d4f,#a35e2d);color:#fff;margin-left:auto;border-bottom-right-radius:6px;transform-origin:bottom right}
+@keyframes bub{from{opacity:0;transform:scale(.6) translateY(10px)}}.msg .who{font-size:11px;color:#a35e2d;font-weight:800}.msg .sc{font-size:11px;font-weight:800;margin-top:4px;opacity:.9}
+.typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--car);margin:0 2px;animation:bl 1s infinite}.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}@keyframes bl{50%{opacity:.2;transform:translateY(-3px)}}
+.composer{display:flex;gap:8px;position:sticky;bottom:10px;background:rgba(255,250,243,.95);padding:8px;border-radius:20px;box-shadow:var(--sh)}.composer textarea{min-height:46px;height:46px;flex:1}.composer button{flex:0 0 52px;border:0;border-radius:16px;background:linear-gradient(135deg,#d48d4f,#8f4f22);color:#fff;font-size:20px;cursor:pointer}
+.ringb{width:140px;height:140px;margin:0 auto;position:relative}.ringb svg{transform:rotate(-90deg)}.ringb b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;font-size:34px;color:var(--roast)}
+.fbk{border-radius:16px;padding:11px 13px;margin:8px 0;font-size:14.5px;animation:slin .6s both}.fbk.g{background:#e2f5e6}.fbk.r{background:#fde4e2}.fbk.y{background:#fff1c4}@keyframes slin{from{opacity:0;transform:translateX(40px)}}
+.chipline{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.chipline span{background:var(--foam);border-radius:999px;padding:3px 9px;font-size:12px;font-weight:700}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+.kpi b span{font-size:inherit;color:inherit}
+.composer{align-items:flex-end}.mic{flex:0 0 52px;height:46px;border:0;border-radius:16px;background:#fff;box-shadow:inset 0 0 0 2px var(--latte);font-size:22px;cursor:pointer;position:relative;transition:.25s;touch-action:none;user-select:none;-webkit-user-select:none}
+.mic.rec{background:linear-gradient(135deg,#ef6a64,#c63d38);box-shadow:0 0 0 0 rgba(224,82,77,.6);animation:micp 1.2s infinite;color:#fff}.mic.busy{opacity:.6}
+@keyframes micp{0%{box-shadow:0 0 0 0 rgba(224,82,77,.55)}100%{box-shadow:0 0 0 18px rgba(224,82,77,0)}}
+.recbar{display:none;align-items:center;gap:10px;background:#fff;border-radius:16px;padding:8px 12px;margin-bottom:8px;box-shadow:var(--sh);animation:up .3s both}.recbar.on{display:flex}
+.recbar .dot{width:12px;height:12px;border-radius:50%;background:var(--bad);animation:beat 1s infinite}.recbar canvas{flex:1;height:36px;width:100%}.recbar b{font-variant-numeric:tabular-nums;color:var(--bad);min-width:40px}
+.recbar .st{font-size:13px;color:var(--muted)}.vhint{font-size:13px;margin:6px 0 0;color:var(--muted)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gr" x1="0" x2="1"><stop offset="0" stop-color="#f0b43c"/><stop offset="1" stop-color="#c8834a"/></linearGradient></defs></svg>
+<canvas id="confetti"></canvas><div id="wrap">
+<div class="top"><div class="logo">☕</div><div class="brand">Тренажёр продавца<small>Демо на примере «Кофейня Демо»</small></div></div>
+<div class="demo">🔎 Демо-версия: всё работает в браузере, без интернета. ИИ-гость — на правилах (без нейросети). Данные хранятся только на этом устройстве.</div>
+<nav><a href="#intro" data-v="intro">☕<br>Главная</a><a href="#rules" data-v="rules">📄<br>Правила</a><a href="#chat" data-v="chat">🤖<br>ИИ-гость</a><a href="#stats" data-v="stats">📊<br>Владелец</a><a href="#promo" data-v="promo">🎬<br>Видео</a></nav>
+<div id="app"></div></div>
+<script>
+const $=s=>document.querySelector(s),app=$('#app'),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function show(h){app.innerHTML=`<div class="screen">${h}</div>`;scrollTo({top:0,behavior:RM?'auto':'smooth'})}
+
+function count(el,to,dur=1200){if(RM){el.textContent=to;return}const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/dur);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0)}
+function confetti(n=160){if(RM)return;const c=$('#confetti'),x=c.getContext('2d');c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;x.scale(devicePixelRatio,devicePixelRatio);
+const cols=['#f0b43c','#c8834a','#3fa45b','#e0524d','#fff','#8f4f22'],P=[...Array(n)].map(()=>({x:innerWidth/2,y:innerHeight*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,r:Math.random()*6+4,c:cols[Math.random()*6|0],a:Math.random()*6,va:(Math.random()-.5)*.3}));let f=0;
+(function loop(){x.clearRect(0,0,innerWidth,innerHeight);P.forEach(p=>{p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=p.va;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);x.restore()});if(++f<180)requestAnimationFrame(loop);else x.clearRect(0,0,innerWidth,innerHeight)})()}
+
+const TY={product:'Товар',benefit:'Выгода',question:'Частый вопрос',answer:'Как ответить',objection:'Возражение',prohibition:'Запрет'};
+let draft=[];
+async function rules(){const g=await api('rules_get');
+show(`<div class="hero"><div class="glow"></div><span class="cup">📄</span><h1>Загрузите правила</h1><p>Ассортимент, скрипты, возражения, запреты — из них соберутся карточки и ИИ-гость.</p></div>
+<div class="card"><div class="drop" id="drop"><span class="ic">📥</span>Перетащите файл .txt, .docx, .csv, .xlsx<br><span style="font-weight:500;font-size:13px">или нажмите, чтобы выбрать</span><div id="fn"></div></div><input type="file" id="file" accept=".txt,.docx,.csv,.xlsx" hidden>
+<p style="text-align:center;color:var(--muted);font-size:13px;margin:10px 0 6px">— или вставьте список —</p><textarea id="tx" placeholder="Товар: Капучино — 250 ₽&#10;Возражение: Дорого -> Ответ: ...&#10;Запрет: Спорить с гостем"></textarea>
+<button class="btn main" id="parse">✨ Разобрать на карточки</button><button class="btn ghost" id="ex">☕ Загрузить пример для кофейни</button><div id="pz"></div></div>
+<div id="prev"></div><div id="sets"></div>`);
+const dz=$('#drop'),fi=$('#file');dz.onclick=()=>fi.click();['dragover','dragenter'].forEach(e=>dz.addEventListener(e,v=>{v.preventDefault();dz.classList.add('over')}));['dragleave','drop'].forEach(e=>dz.addEventListener(e,v=>{v.preventDefault();dz.classList.remove('over')}));
+dz.addEventListener('drop',v=>{if(v.dataTransfer.files[0])upFile(v.dataTransfer.files[0])});fi.onchange=()=>fi.files[0]&&upFile(fi.files[0]);
+$('#parse').onclick=()=>doParse({text:$('#tx').value});$('#ex').onclick=async()=>{const r=await api('rules_example');$('#tx').value=r.text;$('#fn').innerHTML='<span class="fly">📎 standarty_kofeynya.txt</span>';doParse({text:r.text})};
+settings(g.settings);if(g.cards){draft=g.cards;table(true)}}
+async function upFile(f){if(f.size>400000)return alert('Файл больше 400 КБ');$('#fn').innerHTML=`<span class="fly">📎 ${esc(f.name)}</span>`;doParse({file:f})}
+async function doParse(body){$('#pz').innerHTML='<div class="scan"></div><div style="text-align:center;color:var(--muted);font-size:13px">Разбираю правила…</div>';$('#prev').innerHTML='';
+const [r]=await Promise.all([api('rules_parse',body),new Promise(x=>setTimeout(x,RM?0:900))]);if(r.error){$('#pz').innerHTML=`<div class="fbk r">${esc(r.error)}</div>`;return}
+$('#pz').innerHTML='<div class="pcs" id="pcs"></div>';for(const[i,c]of r.cards.entries()){if(i<12){$('#pcs').insertAdjacentHTML('beforeend',`<div class="pc t-${c.type}"><b>${TY[c.type]}</b>${esc(c.text)}${c.answer?`<div style="color:var(--muted);font-size:12px;margin-top:3px">→ ${esc(c.answer)}</div>`:''}</div>`);if(!RM)await new Promise(x=>setTimeout(x,170))}}
+draft=r.cards;table(false)}
+function table(confirmed){$('#prev').innerHTML=`<div class="card"><h3 style="margin:0 0 4px">Проверьте и поправьте ${confirmed?'<span class="pill ok">подтверждено</span>':''}</h3><div style="font-size:13px;color:var(--muted)">${draft.length} карточек · всё можно редактировать</div>
+<table class="rt"><tbody id="rtb">`+draft.map((c,i)=>`<tr style="animation-delay:${RM?0:i*.07}s"><td style="width:34%"><select data-k="type" data-i="${i}">${Object.entries(TY).map(([k,v])=>`<option value="${k}"${k===c.type?' selected':''}>${v}</option>`).join('')}</select></td><td><input data-k="text" data-i="${i}" value="${esc(c.text)}">${['question','objection'].includes(c.type)||c.answer?`<input data-k="answer" data-i="${i}" value="${esc(c.answer)}" placeholder="как ответить" style="margin-top:4px;background:#f1ecfa">`:''}</td><td style="width:28px"><button class="del" data-del="${i}">✕</button></td></tr>`).join('')+`</tbody></table>
+<button class="btn ghost" id="add">+ Добавить строку</button><button class="btn main" id="conf">✓ Подтвердить</button><div id="cres"></div></div>`;
+document.querySelectorAll('#rtb [data-k]').forEach(e=>e.oninput=e.onchange=()=>{draft[e.dataset.i][e.dataset.k]=e.value;if(e.dataset.k==='type')table(false)});
+document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{draft.splice(+b.dataset.del,1);table(false)});
+$('#add').onclick=()=>{draft.push({type:'objection',text:'',answer:''});table(false)};
+$('#conf').onclick=async()=>{const r=await api('rules_confirm',{cards:draft});const b=$('#conf');if(r.error){$('#cres').innerHTML=`<div class="fbk r">${esc(r.error)}</div>`;return}
+b.textContent='✓ Подтверждено: '+r.count+' карточек';b.style.background='linear-gradient(135deg,#4cb86a,#2f8a48)';b.animate&&!RM&&b.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:450});confetti(80);
+$('#cres').innerHTML=`<a class="btn main" href="#chat" style="animation:up .5s both">🤖 Тренироваться с ИИ-гостем →</a>`}}
+function settings(st){$('#sets').innerHTML=`<div class="card stag"><h3 style="margin:0 0 4px">⚙️ Настройки тренировки</h3>
+<div class="row2">Попыток с ИИ-гостем<div class="seg" data-s="attempts">${[1,2,3,5].map(v=>`<button data-v="${v}" class="${st.attempts==v?'on':''}">${v}</button>`).join('')}</div></div>
+<div class="row2">Таймер на ответ<div class="seg" data-s="timer">${[[0,'выкл'],[20,'20с'],[30,'30с'],[45,'45с']].map(([v,t])=>`<button data-v="${v}" class="${st.timer==v?'on':''}">${t}</button>`).join('')}</div></div>
+<div class="row2">Реплик гостя<div class="seg" data-s="turns">${[4,5,6,8].map(v=>`<button data-v="${v}" class="${st.turns==v?'on':''}">${v}</button>`).join('')}</div></div>
+<div class="row2">Разбор ошибок<span class="tg ${st.review?'on':''}" id="rv"></span></div></div>`;
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=async()=>{const k=b.parentNode.dataset.s;b.parentNode.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');await api('settings',{[k]:+b.dataset.v})});
+$('#rv').onclick=async()=>{const on=$('#rv').classList.toggle('on');await api('settings',{review:on})}}
+let chatT;
+async function chat(){const r=await api('chat_start');
+if(r.error==='rules')return show(`<div class="hero"><div class="glow"></div><span class="cup">🤖</span><h1>ИИ-гость</h1><p>Сначала загрузите и подтвердите правила — из них гость возьмёт возражения и вопросы.</p><a class="btn main" href="#rules" style="background:linear-gradient(135deg,#f0b43c,#d07a33)">📄 К правилам</a></div>`);
+if(r.error==='attempts')return show(`<div class="card result"><div class="badge fail">🔁</div><h2>Попытки закончились</h2><p>Использовано ${r.used}. Увеличьте число попыток в настройках.</p><a class="btn main" href="#rules">⚙️ Настройки</a><a class="btn ghost" href="#stats">Сводка владельца →</a></div>`);
+show(`<div class="qhead"><div class="ring" id="rg"><svg width="62" height="62"><circle class="bg" cx="31" cy="31" r="26"/><circle class="fg" id="fg" cx="31" cy="31" r="26" stroke-dasharray="${2*Math.PI*26}" stroke-dashoffset="0"/></svg><b id="t">${r.timer||'∞'}</b></div>
+<div class="meta"><div class="t">🤖 ИИ-гость · попытка ${r.attempt}/${r.attempts}</div><div class="s" id="cs">Реплика 1 из ${r.total}</div><div class="prog"><i id="qp"></i></div></div></div>
+<div class="card"><div class="chat" id="ch"></div></div><div class="composer"><textarea id="in" placeholder="Ваш ответ гостю…"></textarea><button id="send">➤</button></div>`);
+window.CT=r.timer;micUI();await guest(r.say,r.kind);bar(0,r.total);$('#send').onclick=send;$('#in').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}}}
+function bar(i,t){const p=$('#qp');if(p)setTimeout(()=>p.style.width=i/t*100+'%',50)}
+async function guest(text,kind,react){const c=$('#ch'),m=document.createElement('div');m.className='msg ai';m.innerHTML=`<div class="who">${esc(kind||'Гость')}</div><span class="typing"><span></span><span></span><span></span></span>`;c.appendChild(m);m.scrollIntoView({behavior:'smooth',block:'end'});
+await new Promise(x=>setTimeout(x,RM?100:900+Math.min(1200,text.length*15)));m.lastChild.outerHTML=`<div>${react?`<i>${esc(react)}</i> `:''}${esc(text)}</div>`;startT()}
+function startT(){clearInterval(chatT);if(!window.CT)return;let left=CT;const C=2*Math.PI*26;$('#rg').classList.remove('low');$('#t').textContent=left;$('#fg').style.strokeDashoffset=0;
+chatT=setInterval(()=>{left--;if(!$('#t'))return clearInterval(chatT);$('#t').textContent=Math.max(0,left);$('#fg').style.strokeDashoffset=C*(1-Math.max(0,left)/CT);if(left<=5)$('#rg').classList.add('low');if(left<=0){clearInterval(chatT);if(!$('#in').value.trim())$('#in').value='…';send()}},1000)}
+let sending=false;
+async function send(){const v=$('#in').value.trim();if(!v||sending)return;sending=true;clearInterval(chatT);$('#in').value='';const c=$('#ch'),m=document.createElement('div');m.className='msg me';m.textContent=(VOICE?'🎤 ':'')+v;const isV=VOICE;VOICE=false;if(REC)micStop();c.appendChild(m);
+const r=await api('chat_reply',{text:v,voice:isV});if(r.error){sending=false;return}
+m.insertAdjacentHTML('beforeend',`<div class="sc">${r.turn_score>=60?'✓ сильный ответ':r.turn_score>=35?'～ можно лучше':'✕ гость теряет интерес'} · ${r.turn_score}</div>`);
+if(r.summary){await guest(r.react,'Гость');setTimeout(()=>score(r.summary),RM?0:1300)}else{$('#cs').textContent=`Реплика ${r.next.i} из ${r.next.total}`;bar(r.next.i-1,r.next.total);await guest(r.next.say,r.next.kind,r.react)}sending=false}
+function score(s){const C=2*Math.PI*58;show(`<div class="card result"><div class="ringb"><svg width="140" height="140"><circle cx="70" cy="70" r="58" fill="none" stroke="#f0e2d0" stroke-width="12"/><circle id="sr" cx="70" cy="70" r="58" fill="none" stroke="${s.score>=70?'#3fa45b':s.score>=45?'#f0b43c':'#e0524d'}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" style="transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1)"/></svg><b><span id="sv">0</span>%</b></div>
+<h2 style="margin:10px 0 0">${s.score>=85?'🏆 Гость в восторге!':s.score>=70?'👍 Гость купил':s.score>=45?'🤔 Гость сомневается':'🚪 Гость ушёл'}</h2><div style="color:var(--muted);font-size:13px">Оценка по вашим правилам (без нейросети)</div></div>
+<div id="fbs">${s.worked.map(t=>`<div class="fbk g">✅ <b>Сработало:</b> ${esc(t)}</div>`).join('')}${s.lost.map(t=>`<div class="fbk r">⚠️ <b>Где потерял гостя:</b> ${esc(t)}</div>`).join('')}${s.better.map(b=>`<div class="fbk y">💡 <b>На «${esc(b.say)}» лучше:</b> «${esc(b.better)}»</div>`).join('')}</div>
+<button class="btn main" onclick="chat()">🔁 Ещё раз</button><button class="btn ghost" id="rz">🔍 Показать разбор</button><a class="btn ghost" href="#stats">Сводка владельца →</a>`);
+document.querySelectorAll('#fbs .fbk').forEach((e,i)=>e.style.animationDelay=(RM?0:.9+i*.35)+'s');
+setTimeout(()=>{$('#sr').style.strokeDashoffset=C*(1-s.score/100);count($('#sv'),s.score,1600)},100);if(s.score>=70)setTimeout(()=>confetti(),1300);$('#rz').onclick=()=>review(s)}
+
+
+const PREFIX=[["product",/^(товар|ассортимент|позиция|продукт)/],["benefit",/^(выгод|преимуществ|плюс)/],["question",/^(частый вопрос|вопрос)/],["answer",/^(как ответить|ответ|скрипт|фраза)/],["objection",/^возражени/],["prohibition",/^(запрет|нельзя|не допускается)/]];
+const EXAMPLE=`Товар: Капучино 300 мл — 250 ₽
+Выгода: двойной эспрессо из свежей обжарки, молоко 3,2%
+Товар: Круассан — 150 ₽
+Выгода: к любому кофе круассан со скидкой 20%
+Частый вопрос: Почему у вас дороже, чем на вокзале? -> Ответ: У нас свежая обжарка и двойной эспрессо, а к кофе круассан со скидкой — попробуйте, разница чувствуется
+Частый вопрос: А есть растительное молоко? -> Ответ: Да, овсяное и миндальное, доплата 50 ₽, готовим в отдельном питчере
+Возражение: Дорого -> Ответ: Понимаю. Можно взять средний объём и круассан со скидкой — выйдет выгоднее
+Возражение: Я подумаю -> Ответ: Конечно! Могу дать попробовать, а сегодня к кофе десерт со скидкой
+Возражение: Долго ждать -> Ответ: Приготовлю за 3 минуты, а пока предложу присесть
+Запрет: Спорить с гостем
+Запрет: Говорить «не знаю»
+Запрет: Пользоваться телефоном у стойки`;
+const stems=t=>new Set((t.toLowerCase().replace(/ё/g,'е').match(/[а-яa-z0-9]+/g)||[]).filter(w=>w.length>2).map(w=>w.slice(0,5)));
+const STOP=stems("это как что для или если уже есть так все еще можно нужно будет было очень у нас вас вам");
+const minus=(a,b)=>new Set([...a].filter(x=>!b.has(x))),inter=(a,b)=>new Set([...a].filter(x=>b.has(x)));
+const ptype=s=>{const l=s.toLowerCase().trim();for(const[k,rx]of PREFIX)if(rx.test(l))return k;return null};
+function parseRules(text){const cards=[];for(const raw of (text||'').split(/\r?\n/)){let line=raw.trim().replace(/^[-•*\s]+/,'');if(line.length<2)continue;
+ const cells=raw.split('\t').map(c=>c.trim()).filter(Boolean);if(cells.length&&['тип','type','категория','вид'].includes(cells[0].toLowerCase()))continue;let t,body,ans=null;
+ if(cells.length>=2&&cells[0].length<25&&ptype(cells[0])){t=ptype(cells[0]);body=cells[1];ans=cells[2]||null}
+ else{const m=line.split(/\s*(?:->|→|=>)\s*(?:ответ\s*:|как ответить\s*:)?\s*/i);const bf=m[0];ans=m.length>1?m.slice(1).join(' '):null;t=ptype(bf);body=t?bf.replace(/^\s*[^:—\-\t]{0,25}[:\t—]\s*/,'').trim():bf.trim();
+  if(!t){const lo=body.toLowerCase();t=/^(не |нельзя)/.test(lo)?'prohibition':body.endsWith('?')?'question':/^[«"]/.test(body)?'objection':'product'}}
+ body=body.trim();if(/^[«"]/.test(body)&&/[»"]$/.test(body))body=body.slice(1,-1);if(!body)continue;cards.push({type:t,text:body.slice(0,200),answer:(ans||'').slice(0,300)});if(cards.length>=60)break}return cards}
+const GOOD=stems("понимаю попробуйте предложу выгоднее скидка свежая вкус могу конечно давайте рекомендую советую хотите акция десерт быстро минуты");
+const RUDE=["не знаю","не моё","не мое","ваши проблемы","идите","нет и всё","как хотите","мне всё равно","мне все равно"];
+const pick=a=>a[Math.random()*a.length|0];
+function buildScript(cards,turns){const by={};Object.keys(TY).forEach(k=>by[k]=cards.filter(c=>c.type===k));const prod=pick(by.product.map(c=>c.text).concat(by.product.length?[]:['кофе'])).split(/\s+[—-]\s+/)[0];
+ const gen=by.answer.map(c=>c.text).concat(by.benefit.map(c=>c.text)).join(' ');
+ const st=[{kind:'Давит на цену',say:`${prod} — почему так дорого? Рядом дешевле.`,expect:by.objection.filter(c=>/дорог/i.test(c.text)).map(c=>c.answer).join(' ')+' '+by.benefit.map(c=>c.text).join(' ')},
+ {kind:'Сомневается',say:`Не уверен, что ${prod.toLowerCase()} того стоит… Чем он лучше?`,expect:by.benefit.map(c=>c.text).join(' ')||gen}];
+ const rest=by.question.map(c=>({kind:'Частый вопрос',say:c.text,expect:c.answer||gen})).concat(by.objection.filter(c=>!/дорог/i.test(c.text)).map(c=>({kind:'Возражение из списка',say:/[?!.]$/.test(c.text)?c.text:`«${c.text}»`,expect:c.answer||gen})));
+ rest.sort(()=>Math.random()-.5);return st.concat(rest).slice(0,Math.max(3,Math.min(8,turns)))}
+function scoreReply(reply,step,cards){const r=reply.trim(),lo=r.toLowerCase(),rs=minus(stems(r),STOP),exp=minus(stems(step.expect),STOP),hit=inter(rs,exp);let s=0;const notes=[],bad=[];
+ if(exp.size){s+=Math.min(60,Math.floor(hit.size/Math.max(4,Math.min(exp.size,10))*90));if(hit.size)notes.push('опора на ваши правила')}
+ if(inter(rs,GOOD).size){s+=20;notes.push('вежливое предложение')}if(r.length>=25)s+=15;if(r.includes('?')||/(хотите|давайте|предлож)/.test(lo)){s+=5;notes.push('вовлёк гостя')}
+ const NEG=stems("нельзя говорить пользоваться не");for(const c of cards)if(c.type==='prohibition'){const ps=minus(minus(stems(c.text),STOP),NEG);const plain=c.text.toLowerCase().replace('говорить ','').replace(/[«»"]/g,'').trim();
+  if((ps.size&&inter(ps,rs).size>=Math.max(1,ps.size>>1))||(plain&&lo.includes(plain)))bad.push(c.text)}
+ if(RUDE.some(x=>lo.includes(x)))bad.push('грубый или отстранённый ответ');if(r.length<8)bad.push('слишком коротко');if(bad.length)s=Math.min(s,25);return{score:Math.max(0,Math.min(100,s)),notes,bad}}
+const react=s=>pick(s>=60?["Хм, звучит разумно.","Ладно, убедили.","О, это интересно.","Окей, допустим."]:s>=35?["Ну не знаю…","Это как-то не убедительно.","И всё?"]:["Ладно, я, пожалуй, пойду в другое место.","Неприятно. Пойду, наверное."]);
+function summarize(log,review){const total=Math.round(log.reduce((a,t)=>a+t.score,0)/Math.max(1,log.length));const q=s=>s.replace(/[«»]/g,'');
+ return{score:total,passed:total>=70,worked:log.filter(t=>t.score>=60&&t.notes.length).slice(0,3).map(t=>`${t.voice?'🎤 ':''}«${t.reply.slice(0,110)}${t.reply.length>110?'…':''}» — ${t.notes.join(', ')}`),
+ lost:log.filter(t=>t.score<45).slice(0,3).map(t=>`На «${q(t.say).slice(0,70)}» — `+(t.bad.length?t.bad.join('; '):'ответ не убедил')),
+ better:review?[...log].sort((a,b)=>a.score-b.score).slice(0,3).filter(t=>t.score<70).map(t=>({say:q(t.say),better:(t.expect.trim()||'Признать сомнение гостя, назвать выгоду и предложить конкретный вариант').slice(0,200)})):[],log}}
+// --- локальное «API» (всё в браузере, localStorage) ---
+const KEY='trenazher_demo_v1';let U=JSON.parse(localStorage.getItem(KEY)||'null')||{name:'Вы (посетитель демо)',store:'Кофейня Демо — Центральная',rules:null,settings:{attempts:3,timer:0,review:true,turns:5},chat:null,chats:[],last:null};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(U))}catch(e){}};
+const AIF={"Анна К. (демо)":{best:88,n:2,st:'Центральная'},"Игорь С. (демо)":{best:64,n:3,st:'Парковая'},"Мария Л. (демо)":{best:76,n:1,st:'Вокзальная'},"Павел Т. (демо)":{best:41,n:2,st:'Парковая'},"Ольга В. (демо)":{best:58,n:1,st:'Вокзальная'}};
+async function api(n,b={}){const s=U.settings;switch(n){
+ case'rules_example':return{cards:parseRules(EXAMPLE),text:EXAMPLE};
+ case'rules_parse':{let t=b.text||'';if(b.file)try{t=await fileText(b.file)}catch(e){return{error:'Не удалось прочитать файл. Поддерживаются .txt, .csv, .docx, .xlsx'}}const c=parseRules(t);return c.length?{cards:c}:{error:'Не нашла правил в тексте'}}
+ case'rules_confirm':{const c=(b.cards||[]).filter(x=>TY[x.type]&&String(x.text).trim()).slice(0,60);if(!c.length)return{error:'Нет карточек'};U.rules=c;save();return{ok:true,count:c.length}}
+ case'rules_get':return{cards:U.rules,settings:s};
+ case'settings':Object.assign(s,b);save();return{settings:s};
+ case'chat_start':{if(!U.rules)return{error:'rules'};if(U.chats.length>=s.attempts)return{error:'attempts',used:U.chats.length};const sc=buildScript(U.rules,s.turns);U.chat={script:sc,i:0,log:[]};return{say:sc[0].say,kind:sc[0].kind,i:1,total:sc.length,timer:s.timer,attempt:U.chats.length+1,attempts:s.attempts}}
+ case'chat_reply':{const ch=U.chat;if(!ch)return{error:'нет диалога'};const txt=String(b.text||'').slice(0,500),step=ch.script[ch.i],r=scoreReply(txt,step,U.rules);ch.log.push({say:step.say,reply:txt,voice:!!b.voice,score:r.score,notes:r.notes,bad:r.bad,expect:step.expect});ch.i++;
+  const res={turn_score:r.score,react:react(r.score),notes:r.notes,bad:r.bad};if(ch.i>=ch.script.length){const sm=summarize(ch.log,s.review);U.chats.push(sm.score);U.last=sm;U.chat=null;save();res.summary=sm}else{const nx=ch.script[ch.i];res.next={say:nx.say,kind:nx.kind,i:ch.i+1,total:ch.script.length}}return res}
+ case'reset':U.chats=[];U.last=null;save();return{ok:1}}}
+// --- мини-распаковщик zip для .docx/.xlsx (без библиотек) ---
+async function unzip(buf){const dv=new DataView(buf),u8=new Uint8Array(buf);let e=buf.byteLength-22;while(e>0&&dv.getUint32(e,true)!==0x06054b50)e--;const n=dv.getUint16(e+10,true);let p=dv.getUint32(e+16,true);const files={};
+ for(let i=0;i<n;i++){const m=dv.getUint16(p+10,true),cs=dv.getUint32(p+20,true),nl=dv.getUint16(p+28,true),xl=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),off=dv.getUint32(p+42,true);const name=new TextDecoder().decode(u8.slice(p+46,p+46+nl));p+=46+nl+xl+cl;
+  files[name]=async()=>{const lnl=dv.getUint16(off+26,true),lxl=dv.getUint16(off+28,true),d=u8.slice(off+30+lnl+lxl,off+30+lnl+lxl+cs);if(m===0)return new TextDecoder().decode(d);const ds=new Blob([d]).stream().pipeThrough(new DecompressionStream('deflate-raw'));return new Response(ds).text()}}return files}
+async function fileText(f){const n=f.name.toLowerCase(),buf=await f.arrayBuffer(),X=s=>new DOMParser().parseFromString(s,'application/xml');
+ if(n.endsWith('.docx')){const z=await unzip(buf);const d=X(await z['word/document.xml']());return[...d.getElementsByTagName('w:p')].map(p=>[...p.getElementsByTagName('w:t')].map(t=>t.textContent).join('')).join('\n')}
+ if(n.endsWith('.xlsx')){const z=await unzip(buf);const ss=z['xl/sharedStrings.xml']?[...X(await z['xl/sharedStrings.xml']()).getElementsByTagName('si')].map(si=>si.textContent):[];const sh=Object.keys(z).filter(k=>/^xl\/worksheets\/sheet\d+\.xml$/.test(k)).sort()[0];
+  return[...X(await z[sh]()).getElementsByTagName('row')].map(r=>[...r.getElementsByTagName('c')].map(c=>{const v=c.getElementsByTagName('v')[0];return c.getAttribute('t')==='s'&&v?ss[+v.textContent]:(v?v.textContent:c.textContent)}).join('\t')).join('\n')}
+ let t=new TextDecoder('utf-8').decode(buf);if(t.includes('\uFFFD'))t=new TextDecoder('windows-1251').decode(buf);if(n.endsWith('.csv')){const d=(t.split(';').length>t.split(',').length)?';':',';t=t.split(/\r?\n/).map(l=>l.split(d).map(x=>x.replace(/^"|"$/g,'')).join('\t')).join('\n')}return t}
+
+
+function review(s){const L=s.log||[];show(`<div class="card"><h2 style="margin:0 0 6px">🔍 Разбор диалога</h2><div style="color:var(--muted);font-size:13px">Каждая реплика гостя, ваш ответ, оценка и как лучше</div></div><div class="stag">`+L.map((t,i)=>`<div class="card"><div class="msg ai" style="max-width:100%"><div class="who">Гость · реплика ${i+1}</div>${esc(t.say)}</div><div class="msg me" style="max-width:100%;margin-top:8px">${t.voice?'🎤 ':''}${esc(t.reply)}<div class="sc">${t.score>=60?'✓ сильный ответ':t.score>=35?'～ можно лучше':'✕ гость теряет интерес'} · ${t.score}</div></div>
+${t.notes.length?`<div class="chipline">${t.notes.map(n=>`<span>✓ ${esc(n)}</span>`).join('')}</div>`:''}${t.bad.length?`<div class="fbk r">⚠️ ${esc(t.bad.join('; '))}</div>`:''}${t.score<70&&t.expect.trim()?`<div class="fbk y">💡 Лучше: «${esc(t.expect.trim().slice(0,200))}»</div>`:''}</div>`).join('')+`</div><button class="btn main" onclick="go('stats')">📊 Сводка владельца →</button>`)}
+function stats(){const rows=Object.entries(AIF).map(([n,a])=>({name:n,store:a.st,best:a.best,n:a.n,demo:true}));if(U.chats.length)rows.push({name:U.name,store:'Центральная',best:Math.max(...U.chats),n:U.chats.length,demo:false});rows.sort((a,b)=>b.best-a.best);
+const avg=Math.round(rows.reduce((a,r)=>a+r.best,0)/rows.length),good=rows.filter(r=>r.best>=70).length;
+show(`<div class="demo">⚠️ Демо-данные: сотрудники с пометкой «(демо)» и их цифры вымышлены. ${U.chats.length?'Строка «Вы» — ваш настоящий результат.':'Пройдите диалог с ИИ-гостем — вы появитесь в списке.'}</div>
+<div class="kpis stag"><div class="kpi"><b data-c="${rows.length}">0</b><span>сотрудников</span></div><div class="kpi"><b data-c="${good}">0</b><span>убедили гостя (70%+)</span></div><div class="kpi"><b><span data-c="${avg}">0</span>%</b><span>средний балл</span></div></div>
+<div class="card"><h3 style="margin:0 0 4px">🤖 ИИ-гость: сводка по сотрудникам</h3><div class="stag">`+rows.map(r=>`<div class="emp ${r.demo?'':'me'}"><div class="av">${esc(r.name[0])}</div><div class="x"><b>${esc(r.name)}</b><span>${esc(r.store)} · ${r.n} сесс.</span><div class="prog"><i data-w="${r.best}" style="background:linear-gradient(90deg,${r.best>=70?'#4cb86a,#2f8a48':r.best>=45?'#f0b43c,#c8834a':'#ef6a64,#c63d38'})"></i></div></div><div class="sc"><span class="pill ${r.best>=70?'ok':'bad'}">${r.best}%</span></div></div>`).join('')+`</div></div>
+${U.last?`<button class="btn ghost" onclick="review(U.last)">🔍 Показать разбор последнего диалога</button>`:''}<button class="btn ghost" onclick="api('reset').then(()=>go('stats'))">↺ Сбросить мои попытки</button>`);
+setTimeout(()=>{document.querySelectorAll('[data-w]').forEach((e,i)=>setTimeout(()=>e.style.width=e.dataset.w+'%',i*80));document.querySelectorAll('[data-c]').forEach(e=>count(e,+e.dataset.c))},150)}
+function promo(){show(`<div class="hero"><div class="glow"></div><span class="cup">🎬</span><h1>Презентация</h1><p>Минута о том, как работает тренажёр.</p></div>
+<div class="card" style="padding:10px"><video id="pv" src="kofeynya.mp4" controls playsinline style="width:100%;border-radius:16px;background:#2b1810;max-height:70vh"></video><div id="pve" style="display:none" class="fbk y">Видео kofeynya.mp4 не найдено рядом с файлом — распакуйте архив целиком или откройте онлайн-версию.</div></div>
+<a class="btn main" href="kofeynya.mp4" target="_blank" rel="noopener">▶ Онлайн-презентация</a>`);$('#pv').onerror=()=>{$('#pve').style.display='block'}}
+function intro(){show(`<div class="hero"><div class="glow"></div><div style="position:relative"><span class="steam"><i></i><i></i><i></i></span><span class="cup">☕</span></div>
+<h1>Тренажёр продавца</h1><p>Загружаете свои правила — ИИ-гость проверяет продавцов на возражениях, а вы видите, кто готов к смене.</p><button class="btn main" onclick="go('rules')" style="background:linear-gradient(135deg,#f0b43c,#d07a33)">Попробовать →</button></div>
+<div class="card stag" style="margin-top:14px"><div class="feat"><div class="i">📄</div><div><b>Ваши правила → карточки</b><span>Ассортимент, скрипты, возражения, запреты</span></div></div>
+<div class="feat"><div class="i">🤖</div><div><b>ИИ-гость</b><span>Давит на цену, сомневается, спорит — по вашему списку</span></div></div>
+<div class="feat"><div class="i">💡</div><div><b>Разбор после диалога</b><span>Что сработало, где потерял гостя, как сказать лучше</span></div></div>
+<div class="feat"><div class="i">📊</div><div><b>Сводка владельца</b><span>По каждому сотруднику и точке</span></div></div></div>
+<div class="card"><h3 style="margin:0 0 6px">Клиент: El Tabaco</h3><div style="font-size:14.5px">Тренажёр уже работает в сети El Tabaco — 22 магазина: 16 уровней, экзамен с порогом 85%, таймер, разбор ошибок.</div></div>
+<div class="card" style="text-align:center"><div class="big">990 ₽</div><div>в месяц за одну точку</div><div class="rank">🎁 Первые 3 дня бесплатно</div></div>`)}
+const VIEWS={intro,rules,chat,stats,promo};
+function go(v){if(location.hash!=='#'+v)location.hash=v;else route()}
+function route(){clearInterval(chatT);const v=(location.hash.slice(1)||'intro');document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));(VIEWS[v]||intro)()}
+addEventListener('hashchange',route);route();
+
+
+// ---- Голосовой ответ ----
+let REC=null,VOICE=false;
+function micUI(){const c=document.querySelector('.composer');if(!c||$('#mic'))return;c.insertAdjacentHTML('beforebegin',`<div class="recbar" id="rb"><span class="dot"></span><canvas id="wv" height="36"></canvas><b id="rt">0:00</b><span class="st" id="rs">Говорите…</span></div>`);
+ $('#send').insertAdjacentHTML('beforebegin','<button class="mic" id="mic" title="Ответить голосом: нажмите или удерживайте">🎤</button>');c.insertAdjacentHTML('afterend','<div class="vhint" id="vh">🎤 Можно ответить голосом: нажмите и говорите, нажмите ещё раз — текст появится в поле, его можно поправить.</div>');
+ const m=$('#mic');let t0=0;m.onpointerdown=e=>{e.preventDefault();t0=Date.now();if(!REC)micStart()};m.onpointerup=()=>{if(REC&&Date.now()-t0>600)micStop()};m.onclick=e=>{e.preventDefault();if(REC&&Date.now()-t0<600&&REC.started<t0)micStop()};
+ $('#in').addEventListener('input',()=>{if(!$('#in').value.trim())VOICE=false})}
+function wave(stream){try{const ac=new (window.AudioContext||window.webkitAudioContext)(),an=ac.createAnalyser();an.fftSize=256;ac.createMediaStreamSource(stream).connect(an);const d=new Uint8Array(an.frequencyBinCount),cv=$('#wv'),x=cv.getContext('2d');cv.width=cv.clientWidth*2;cv.height=72;
+ (function f(){if(!REC){ac.close();return}an.getByteTimeDomainData(d);x.clearRect(0,0,cv.width,cv.height);const n=40,w=cv.width/n;for(let i=0;i<n;i++){let a=0;for(let k=0;k<3;k++)a=Math.max(a,Math.abs(d[(i*3+k)%d.length]-128));const h=Math.max(4,a/128*cv.height*1.6);x.fillStyle=`hsl(${15+i},70%,${50-a/8}%)`;x.beginPath();x.roundRect?x.roundRect(i*w+2,(cv.height-h)/2,w-4,h,4):x.rect(i*w+2,(cv.height-h)/2,w-4,h);x.fill()}requestAnimationFrame(f)})()}catch(e){}}
+function recTimer(){const t=Date.now();REC.tm=setInterval(()=>{const s=(Date.now()-t)/1000|0;$('#rt').textContent=`${s/60|0}:${String(s%60).padStart(2,'0')}`;if(s>=30)micStop()},250)}
+function micReset(){if(REC){clearInterval(REC.tm);REC.stream&&REC.stream.getTracks().forEach(t=>t.stop())}REC=null;$('#mic')&&$('#mic').classList.remove('rec');$('#rb')&&$('#rb').classList.remove('on')}
+function hint(t){$('#vh').innerHTML=t;$('#vh').style.color='var(--bad)'}
+
+async function micStart(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR)return hint('В этом браузере нет распознавания речи. Откройте файл в Google Chrome или используйте онлайн-версию: <a href="https://82-40-38-37.sslip.io/demo/chat" target="_blank">82-40-38-37.sslip.io/demo/chat</a>');
+ const sr=new SR();sr.lang='ru-RU';sr.interimResults=true;sr.continuous=true;const before=$('#in').value.trim();let fin='';REC={sr,started:Date.now()};
+ sr.onresult=e=>{let tmp='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)fin+=e.results[i][0].transcript+' ';else tmp+=e.results[i][0].transcript}$('#in').value=(before?before+' ':'')+(fin+tmp).trim();VOICE=true};
+ sr.onerror=e=>{micReset();hint(e.error==='not-allowed'||e.error==='service-not-allowed'?'Браузер не дал доступ к микрофону для файла. Голос работает в онлайн-версии: <a href="https://82-40-38-37.sslip.io/demo/chat" target="_blank">82-40-38-37.sslip.io/demo/chat</a>':e.error==='network'?'Распознаванию Chrome нужен интернет. Без сети ответьте текстом.':'Не расслышала, попробуйте ещё раз.')};
+ sr.onend=()=>{if(REC&&REC.sr===sr){micReset()}};
+ try{sr.start()}catch(e){return hint('Не удалось включить микрофон.')}$('#mic').classList.add('rec');$('#rb').classList.add('on');$('#rt').textContent='0:00';recTimer();
+ try{const st=await navigator.mediaDevices.getUserMedia({audio:true});if(REC){REC.stream=st;wave(st)}else st.getTracks().forEach(t=>t.stop())}catch(e){}}
+function micStop(){if(!REC)return;const r=REC;try{r.sr.stop()}catch(e){}micReset()}
+</script></body></html>
